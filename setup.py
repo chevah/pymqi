@@ -137,6 +137,9 @@ def get_locations_by_command_path(command_path):
 
     return library_dirs, include_dirs, libraries
 
+# Used to distribute the IBM MQ shared libraries with the wheel.
+data_files = []
+
 # Windows
 if sys.platform == 'win32':
     library_dirs, include_dirs, libraries = get_windows_settings()
@@ -156,6 +159,21 @@ else:
 
     has_generic_lib = os.path.exists('/opt/mqm/lib64') if bits == 64 else os.path.exists('/opt/mqm/lib')
     has_mq_file_path = os.environ.get('MQ_FILE_PATH', False)
+
+    if has_mq_file_path:
+        data_files = [
+            ('lib/shared_libs/lib', [
+                has_mq_file_path + '/lib/ccsid.tbl',
+                has_mq_file_path + '/lib/ccdt_schema.json',
+                has_mq_file_path + '/lib/ccsid_part2.tbl',
+                ]),
+            ('lib/shared_libs/lib64', [
+                has_mq_file_path + '/lib64/libmqe.so',
+                has_mq_file_path + '/lib64/libmqe_r.so',
+                has_mq_file_path + '/lib64/libmqic.so',
+                has_mq_file_path + '/lib64/libmqic_r.so',
+                ]),
+        ]
 
     if has_generic_lib or has_mq_file_path:
         library_dirs, include_dirs, libraries = get_generic_unix_settings()
@@ -178,6 +196,7 @@ if bindings_mode:
     print('Building PyMQI bindings mode %sbits' % bits)
 else:
     print('Building PyMQI client mode %sbits' % bits)
+
 
 print('Using library_dirs:`%s`, include:`%s`, libraries:`%s`' % (library_dirs, include_dirs, libraries))
 
@@ -257,7 +276,6 @@ _ = setup(name = 'pymqi',
     keywords=('pymqi IBM MQ WebSphere WMQ MQSeries IBM middleware messaging queueing asynchronous SOA EAI ESB integration'),
     classifiers = [
         'Development Status :: 5 - Production/Stable',
-        'License :: OSI Approved :: Python Software Foundation License',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
@@ -266,8 +284,14 @@ _ = setup(name = 'pymqi',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Object Brokering',
         ],
+    data_files=data_files,
     py_modules = ['pymqi.CMQC', 'pymqi.CMQCFC', 'pymqi.CMQXC', 'pymqi.CMQZC'],
-    ext_modules = [Extension('pymqi.pymqe',['code/pymqi/pymqe.c'], define_macros=[('PYQMI_BINDINGS_MODE_BUILD', bindings_mode)],
-        library_dirs = library_dirs,
-        include_dirs = include_dirs,
-        libraries = libraries)])
+    ext_modules = [Extension(
+        'pymqi.pymqe',
+        ['code/pymqi/pymqe.c'],
+        define_macros=[('PYQMI_BINDINGS_MODE_BUILD', bindings_mode)],
+        library_dirs=library_dirs,
+        include_dirs=include_dirs,
+        libraries=libraries,
+    )]
+)

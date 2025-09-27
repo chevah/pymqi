@@ -6,7 +6,46 @@ PyMQI is a production-ready, open-source Python extension for IBM MQ (formerly k
 For 20+ years, the library has been used by thousands of companies around the world with their queue managers running on
 Linux, Windows, UNIX and z/OS.
 
-## Sample code
+# Build binary wheels
+
+Get the redistributables from IBM site.
+For example for 9.4 the URL is https://ibm.biz/mq94redistclients
+
+Find out more on the IBM Docs
+https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=overview-redistributable-mq-clients
+
+Most probably you will need an IBM account :(
+
+Extract those files somewhere.
+
+
+
+## Linux
+
+Set the `MQ_FILE_PATH` environment variable to the place where the
+redistributables were extracted.
+
+```
+$ export MQ_FILE_PATH=/home/user/Downloads/9.4.3.1-IBM-MQC-Redist-LinuxX64
+$ python build
+```
+
+It will copy the IBM MQ libraries at lib/shared_libs.
+You can then publish the wheel file to your private PyPi server
+or somewhere in your build system.
+
+You will need to set `LD_LIBRARY_PATH` as Python only looks for its libraries.
+3rd party libraries will need the standard Linux search mechanism.
+In your virtual environment you can do
+
+```
+python -m pip install ../pymqi/dist/pymqi-1.12.11-cp312-cp312-linux_x86_64.whl
+export LD_LIBRARY_PATH=YOUR_VENV/lib/shared_libs/lib64/
+python your_ibm_mq_sample_code.py
+```
+
+
+# Sample code
 
 To put a message on a queue:
 
