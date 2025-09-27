@@ -147,11 +147,11 @@ if sys.platform == 'win32':
 
     if has_mq_file_path:
         data_files = [
-            ('lib/conv', [
+            ('conv', [
                 has_mq_file_path + '/conv/ccsid.tbl',
                 has_mq_file_path + '/conv/ccsid_part2.tbl',
                 ]),
-            ('lib/', [
+            ('', [
                 has_mq_file_path + '/bin64/mqe.dll',
                 has_mq_file_path + '/bin64/mqic.dll',
                 ]),
