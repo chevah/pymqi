@@ -143,6 +143,19 @@ data_files = []
 # Windows
 if sys.platform == 'win32':
     library_dirs, include_dirs, libraries = get_windows_settings()
+    has_mq_file_path = os.environ.get('MQ_FILE_PATH', False)
+
+    if has_mq_file_path:
+        data_files = [
+            ('lib/conv', [
+                has_mq_file_path + '/conv/ccsid.tbl',
+                has_mq_file_path + '/conv/ccsid_part2.tbl',
+                ]),
+            ('lib/', [
+                has_mq_file_path + '/bin64/mqe.dll',
+                has_mq_file_path + '/bin64/mqic.dll',
+                ]),
+        ]
 
 # SunOS and z/Linux
 elif sys.platform == 'sunos5' or sys.platform == 'linux-s390':
