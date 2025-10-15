@@ -44,6 +44,19 @@ export LD_LIBRARY_PATH=YOUR_VENV/lib/shared_libs/lib64/
 python your_ibm_mq_sample_code.py
 ```
 
+## Windows
+
+Similar to Linux.
+Set the `MQ_FILE_PATH` to the path where the files were extracted.
+
+```
+> $env:MQ_FILE_PATH = "C:\Users\John\Downloads\9.4.3.1-IBM-MQC-Redist-Win64
+> python setup.py bdist_wheel
+```
+
+It wil copy the IBM MQ DLLs and table files in the Python virtual environment
+root folder.
+
 
 # Sample code
 
