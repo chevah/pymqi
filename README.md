@@ -46,6 +46,13 @@ python your_ibm_mq_sample_code.py
 
 ## Windows
 
+
+The Microsoft Visual C++ 2013 Redistributable is required to build on
+Windows systems.
+This is a limitation of the IBM MQ C Client library.
+The DLLs are copied in the wheel, so you don't need to install this on the
+target systems.
+
 Similar to Linux.
 Set the `MQ_FILE_PATH` to the path where the files were extracted.
 
@@ -63,6 +70,12 @@ root folder.
 To put a message on a queue:
 
 ```python
+import os
+
+if os.name == 'nt':
+    base_dll_dir = os.path.join(os.path.dirname(sys.executable), 'ibm-mq')
+    os.add_dll_directory(base_dll_dir)
+
 import pymqi
 
 queue_manager = pymqi.connect('QM.1', 'SVRCONN.CHANNEL.1', '192.168.1.121(1434)')

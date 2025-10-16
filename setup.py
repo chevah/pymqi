@@ -147,15 +147,21 @@ if sys.platform == 'win32':
 
     if has_mq_file_path:
         data_files = [
+            ('ibm-mq/', [
+                has_mq_file_path + '/bin64/mqe.dll',
+                has_mq_file_path + '/bin64/mqic.dll',
+                ]),
             ('ibm-mq/conv', [
                 has_mq_file_path + '/conv/ccsid.tbl',
                 has_mq_file_path + '/conv/ccsid_part2.tbl',
                 ]),
-            ('ibm-mq/', [
-                has_mq_file_path + '/bin64/mqe.dll',
-                has_mq_file_path + '/bin64/mqic.dll',
+            ('ibm-mq/bin64', [
                 has_mq_file_path + '/bin64/libcurl.dll',
-
+                ]),
+            ('ibm-mq/gskit8/lib64/', [
+                # The bin file is moved to lib to allow using it outside
+                # of python.
+                # This is used to manage the keystore.
                 has_mq_file_path + '/gskit8/bin/gsk8capicmd_64.exe',
                 has_mq_file_path + '/gskit8/lib64/capicmd_res.dll',
                 has_mq_file_path + '/gskit8/lib64/gsk8acmeidup_64.dll',
@@ -168,8 +174,11 @@ if sys.platform == 'win32':
                 has_mq_file_path + '/gskit8/lib64/gsk8ssl_64.dll',
                 has_mq_file_path + '/gskit8/lib64/gsk8sys_64.dll',
                 has_mq_file_path + '/gskit8/lib64/gsk8valn_64.dll',
+                # VC++ 2012 runtime dependencies.
+                'c:/windows/system32/msvcp120.dll',
+                'c:/windows/system32/msvcr120.dll',
                 ]),
-            ('ibm-mq/N/icc/icclib', [
+            ('ibm-mq/gskit8/lib64/N/icc/icclib', [
                 has_mq_file_path + '/gskit8/lib64/N/icc/icclib/ICCSIG.txt',
                 has_mq_file_path + '/gskit8/lib64/N/icc/icclib/icclib085.dll',
                 ]),
