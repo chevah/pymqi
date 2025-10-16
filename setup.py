@@ -147,13 +147,31 @@ if sys.platform == 'win32':
 
     if has_mq_file_path:
         data_files = [
-            ('conv', [
+            ('ibm-mq/conv', [
                 has_mq_file_path + '/conv/ccsid.tbl',
                 has_mq_file_path + '/conv/ccsid_part2.tbl',
                 ]),
-            ('', [
+            ('ibm-mq/', [
                 has_mq_file_path + '/bin64/mqe.dll',
                 has_mq_file_path + '/bin64/mqic.dll',
+                has_mq_file_path + '/bin64/libcurl.dll',
+
+                has_mq_file_path + '/gskit8/bin/gsk8capicmd_64.exe',
+                has_mq_file_path + '/gskit8/lib64/capicmd_res.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8acmeidup_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8cms_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8dbfl_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8iccs_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8kicc_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8km_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8p11_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8ssl_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8sys_64.dll',
+                has_mq_file_path + '/gskit8/lib64/gsk8valn_64.dll',
+                ]),
+            ('ibm-mq/N/icc/icclib', [
+                has_mq_file_path + '/gskit8/lib64/N/icc/icclib/ICCSIG.txt',
+                has_mq_file_path + '/gskit8/lib64/N/icc/icclib/icclib085.dll',
                 ]),
         ]
 
