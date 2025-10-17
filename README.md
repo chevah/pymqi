@@ -19,7 +19,6 @@ Most probably you will need an IBM account :(
 Extract those files somewhere.
 
 
-
 ## Linux
 
 Set the `MQ_FILE_PATH` environment variable to the place where the
@@ -27,7 +26,8 @@ redistributables were extracted.
 
 ```
 $ export MQ_FILE_PATH=/home/user/Downloads/9.4.3.1-IBM-MQC-Redist-LinuxX64
-$ python build
+$ python -m pip install wheel
+$ python setup.py bdist_wheel --plat-name=manylinux_2_17_x86_64
 ```
 
 It will copy the IBM MQ libraries at lib/shared_libs.
@@ -40,7 +40,7 @@ In your virtual environment you can do
 
 ```
 python -m pip install ../pymqi/dist/pymqi-1.12.11-cp312-cp312-linux_x86_64.whl
-export LD_LIBRARY_PATH=YOUR_VENV/lib/shared_libs/lib64/
+export LD_LIBRARY_PATH=YOUR_VENV/lib/ibm-mq/lib64/:YOUR_VENV/lib/ibm-mq/gskit8/lib64/
 python your_ibm_mq_sample_code.py
 ```
 
@@ -61,13 +61,9 @@ Set the `MQ_FILE_PATH` to the path where the files were extracted.
 > python setup.py bdist_wheel
 ```
 
-It wil copy the IBM MQ DLLs and table files in the Python virtual environment
-root folder.
-
-
-# Sample code
-
-To put a message on a queue:
+It will copy the IBM MQ DLLs and table files in the Python virtual environment,
+into a sub-folder called `ibm-mq`.
+You will need to setup Python to load the DLL from there.
 
 ```python
 import os
@@ -76,6 +72,15 @@ if os.name == 'nt':
     base_dll_dir = os.path.join(os.path.dirname(sys.executable), 'ibm-mq')
     os.add_dll_directory(base_dll_dir)
 
+import pymqi
+```
+
+
+# Sample code
+
+To put a message on a queue:
+
+```python
 import pymqi
 
 queue_manager = pymqi.connect('QM.1', 'SVRCONN.CHANNEL.1', '192.168.1.121(1434)')

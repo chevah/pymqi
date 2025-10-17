@@ -16,7 +16,7 @@ from distutils.core import Extension
 from distutils import spawn
 from struct import calcsize
 
-version = '1.12.11+chevah.2'
+version = '1.12.11+chevah.3'
 
 # Build either in bindings or client mode.
 bindings_mode = 0
@@ -202,22 +202,22 @@ else:
 
     if has_mq_file_path:
         data_files = [
-            ('lib/shared_libs/lib', [
+            ('lib/ibm-mq/lib', [
                 has_mq_file_path + '/lib/ccsid.tbl',
                 has_mq_file_path + '/lib/ccdt_schema.json',
                 has_mq_file_path + '/lib/ccsid_part2.tbl',
                 ]),
-            ('lib/shared_libs/lib64', [
+            ('lib/ibm-mq/lib64', [
                 has_mq_file_path + '/lib64/libmqe.so',
                 has_mq_file_path + '/lib64/libmqe_r.so',
                 has_mq_file_path + '/lib64/libmqic.so',
                 has_mq_file_path + '/lib64/libmqic_r.so',
                 has_mq_file_path + '/lib64/libcurl.so',
                 ]),
-            ('lib/shared_libs/gskit8/bin/', [
+            ('lib/ibm-mq/gskit8/bin/', [
                 has_mq_file_path + '/gskit8/bin/gsk8capicmd_64',
                 ]),
-            ('lib/shared_libs/gskit8/lib64', [
+            ('lib/ibm-mq/gskit8/lib64', [
                 has_mq_file_path + '/gskit8/lib64/libgsk8acmeidup_64.so',
                 has_mq_file_path + '/gskit8/lib64/libgsk8cms_64.so',
                 has_mq_file_path + '/gskit8/lib64/libgsk8dbfl_64.so',
@@ -229,7 +229,7 @@ else:
                 has_mq_file_path + '/gskit8/lib64/libgsk8sys_64.so',
                 has_mq_file_path + '/gskit8/lib64/libgsk8valn_64.so',
                 ]),
-            ('lib/shared_libs/gskit8/lib64/N/icc/icclib', [
+            ('lib/ibm-mq/gskit8/lib64/N/icc/icclib', [
                 has_mq_file_path + '/gskit8/lib64/N/icc/icclib/ICCSIG.txt',
                 has_mq_file_path + '/gskit8/lib64/N/icc/icclib/libicclib085.so',
                 ]),
