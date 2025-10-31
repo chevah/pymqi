@@ -30,7 +30,7 @@ $ python -m pip install wheel
 $ python setup.py bdist_wheel --plat-name=manylinux_2_17_x86_64
 ```
 
-It will copy the IBM MQ libraries at lib/shared_libs.
+It will copy the IBM MQ libraries at lib/ibm-mq folder.
 You can then publish the wheel file to your private PyPi server
 or somewhere in your build system.
 
@@ -57,7 +57,7 @@ Similar to Linux.
 Set the `MQ_FILE_PATH` to the path where the files were extracted.
 
 ```
-> $env:MQ_FILE_PATH = "C:\Users\John\Downloads\9.4.3.1-IBM-MQC-Redist-Win64
+> $env:MQ_FILE_PATH = "C:/Users/John/Downloads/9.4.3.1-IBM-MQC-Redist-Win64
 > python setup.py bdist_wheel
 ```
 
